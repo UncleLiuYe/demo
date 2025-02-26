@@ -33,7 +33,7 @@ jobs:
       uses: softprops/action-gh-release@v2
       with:
         token: '${{ secrets.MY_TOKEN }}'
-        files: '${{github.workspace}}'/target/demo-0.0.1-SNAPSHOT.jar
+        files: ./target/demo-0.0.1-SNAPSHOT.jar
         make_latest: "true"
         tag_name: '${{github.ref_name}}'
 
