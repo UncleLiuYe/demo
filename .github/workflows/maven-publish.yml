@@ -33,6 +33,6 @@ jobs:
         WITH_V: true
     - name: Release
       uses: softprops/action-gh-release@v2
-      env:
+      with:
         files: /target/demo-0.0.1-SNAPSHOT.jar
         tag_name: ${{ steps.bump.outputs.new_tag }}
