@@ -25,8 +25,8 @@ jobs:
         distribution: 'oracle'
     - name: Build with Maven
       run: mvn clean package
-    - name: cd
-      run: cd /target/
+    - name:
+      run: ls -lh
     - name: Release
       uses: softprops/action-gh-release@v2
       with:
