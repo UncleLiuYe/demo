@@ -8,6 +8,8 @@ on:
     branches:
       - master
 
+permissions: read-all
+
 jobs:
   build:
 
@@ -25,14 +27,8 @@ jobs:
         distribution: 'oracle'
     - name: Build with Maven
       run: mvn clean package
-    - name: Bump version and push tag
-      id: bump
-      uses: anothrNick/github-tag-action@v1
-      env:
-        WITH_V: true
-        PRERELEASE_SUFFIX: pr-${{ github.event.number }}
     - name: Release
       uses: softprops/action-gh-release@v2
       with:
+        token: '${{ secrets.MY_TOKEN }}'
         files: /target/demo-0.0.1-SNAPSHOT.jar
-        tag_name: ${{ steps.bump.outputs.new_tag }}
