@@ -34,3 +34,6 @@ jobs:
       with:
         token: '${{ secrets.MY_TOKEN }}'
         files: /target/demo-0.0.1-SNAPSHOT.jar
+        make_latest: "true"
+        tag_name: '${{github.ref_name}}'
+
