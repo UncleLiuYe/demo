@@ -8,6 +8,3 @@ spring:
     encoding: UTF-8
     prefix: classpath:/templates/
     suffix: .html
-logging:
-  level:
-    org.apache.shiro: trace

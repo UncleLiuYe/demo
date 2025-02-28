@@ -1,32 +1,33 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>用户登录</title>
-    <style>
-        .error {
-            color: red;
-        }
-    </style>
+    <title>登录</title>
 </head>
 <body>
-<h2>系统登录</h2>
-<div th:if="${shiroLoginFailure}" class="error">
-    <span th:text="${shiroLoginFailure}"></span>
+<h1>登录</h1>
+<div th:if="${error}">
+    <p style="color: red;" th:text="${error}"></p>
 </div>
-
-<form th:action="/login" method="post">
+<div th:if="${param.needLogin}">
+    <p style="color: red;">需要登陆后才能操作</p>
+</div>
+<div th:if="${param.logout}">
+    <p style="color: green;">您已成功注销</p>
+</div>
+<form th:action="@{/login}" method="post">
     <div>
-        <label for="username">用户名：</label>
-        <input id="username" type="text" name="username" required>
+        <label for="username">用户名:</label>
+        <input type="text" id="username" name="username" required="required"/>
     </div>
     <div>
-        <label for="password">密码：</label>
-        <input id="password" type="password" name="password" required>
+        <label for="password">密码:</label>
+        <input type="password" id="password" name="password" required="required"/>
     </div>
     <div>
-        <button type="submit">登录</button>
+        <input type="submit" value="登录"/>
     </div>
 </form>
+
 </body>
 </html>
