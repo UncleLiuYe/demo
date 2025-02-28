@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="site.liuye.demo.mapper.MovieMapper">
+    <select id="findById" parameterType="long" resultType="site.liuye.demo.domain.Movie">
+        SELECT *
+        FROM movies
+        WHERE id = #{id}
+    </select>
+
+    <select id="findAll" resultType="site.liuye.demo.domain.Movie">
+        SELECT *
+        FROM movies
+    </select>
+
+    <select id="findMoviesByCondition" resultType="site.liuye.demo.domain.Movie">
+        SELECT * FROM movies
+        <where>
+            <if test="title != null and title != ''">
+                AND title LIKE CONCAT('%', #{title}, '%')
+            </if>
+            <if test="categoryId != null">
+                AND category_id = #{categoryId}
+            </if>
+            <if test="area != null and area != ''">
+                AND area = #{area}
+            </if>
+        </where>
+    </select>
+
+    <insert id="insertMovie" parameterType="site.liuye.demo.domain.Movie" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO movies (title, alias, director, actors, category_id, area, language, release_year, update_time,
+                            description, cover_image, type)
+        VALUES (#{title}, #{alias}, #{director}, #{actors}, #{categoryId}, #{area}, #{language}, #{releaseYear},
+                #{updateTime}, #{description}, #{coverImage}, #{type})
+    </insert>
+
+    <update id="updateMovie" parameterType="site.liuye.demo.domain.Movie">
+        UPDATE movies
+        <set>
+            <if test="title != null and title != ''">
+                title = #{title},
+            </if>
+            <if test="alias != null and alias != ''">
+                alias = #{alias},
+            </if>
+            <if test="director != null and director != ''">
+                director = #{director},
+            </if>
+            <if test="actors != null and actors != ''">
+                actors = #{actors},
+            </if>
+            <if test="categoryId != null">
+                category_id = #{categoryId},
+            </if>
+            <if test="area != null and area != ''">
+                area = #{area},
+            </if>
+            <if test="language != null and language != ''">
+                language = #{language},
+            </if>
+            <if test="releaseYear != null">
+                release_year = #{releaseYear},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="coverImage != null and coverImage != ''">
+                cover_image = #{coverImage},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <delete id="deleteMovie" parameterType="long">
+        DELETE
+        FROM movies
+        WHERE id = #{id}
+    </delete>
+
+    <select id="findAllMovies" resultType="site.liuye.demo.domain.Movie">
+        SELECT *
+        FROM movies
+        LIMIT #{offset}, #{limit}
+    </select>
+
+    <select id="countAllMovies" resultType="int">
+        SELECT COUNT(*)
+        FROM movies
+    </select>
+</mapper>

@@ -6,17 +6,14 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 @Slf4j
 @Configuration
@@ -26,24 +23,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
-        http.authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers("/api/**").authenticated();
-                    authorize.requestMatchers("/home").authenticated();
-                    authorize.anyRequest().permitAll();
-                }).formLogin(formLogin -> {
-                    formLogin.loginPage("/login").permitAll();
-                    formLogin.loginProcessingUrl("/login").permitAll();
-                })
-                .logout(logout -> logout.logoutUrl("/logout"))
-                .exceptionHandling(exception -> exception.authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login?needLogin")));
+        http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/home").authenticated()
+                        .anyRequest().permitAll())
+                .formLogin(formlogin -> formlogin.defaultSuccessUrl("/home"))
+                .logout(Customizer.withDefaults());
         return http.build();
-    }
-
-    @Bean
-    public UserDetailsService userDetailsService() {
-        UserDetails user = User.withUsername("user").password(passwordEncoder().encode("password")).roles("USER").build();
-        UserDetails admin = User.withUsername("admin").password(passwordEncoder().encode("admin")).roles("ADMIN", "USER").build();
-        return new InMemoryUserDetailsManager(user, admin);
     }
 
     @Bean
