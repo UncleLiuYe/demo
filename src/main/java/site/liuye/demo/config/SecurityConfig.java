@@ -6,7 +6,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -23,11 +22,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED));
-        http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/api/**").authenticated()
-                        .requestMatchers("/home").authenticated()
-                        .anyRequest().permitAll())
-                .formLogin(formlogin -> formlogin.defaultSuccessUrl("/home"))
-                .logout(Customizer.withDefaults());
+        http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/home").authenticated().anyRequest().permitAll());
+        http.formLogin(formLoginConfigurer -> formLoginConfigurer.defaultSuccessUrl("/home"));
         return http.build();
     }
 

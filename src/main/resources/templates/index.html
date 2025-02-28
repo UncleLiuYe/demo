@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <title>电影列表 (卡片式)</title>
+    <link th:href="@{/layui/css/layui.css}" rel="stylesheet">
+    <style>
+        .movie-card {
+            margin-bottom: 20px;
+            height: 300px;
+            overflow: hidden;
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+
+<div class="layui-container">
+    <div class="layui-row">
+        <th:block th:each="movie, status : ${movies}">
+            <div class="layui-col-md2">
+                <div class="layui-card movie-card" th:attr="data-id=${movie.id}">
+                    <div class="layui-card-body">
+                        <img th:src="${movie.coverImage}" th:alt="${movie.title}">
+                        <h2 style="text-align: center" th:text="${movie.title}"></h2>
+                    </div>
+                </div>
+            </div>
+        </th:block>
+    </div>
+</div>
+
+<script th:src="@{/layui/layui.js}"></script>
+<script>
+    layui.use(['jquery'], function () {
+        let $ = layui.jquery;
+
+        $('.movie-card').on('click', function () {
+            let movieId = $(this).data('id');
+        });
+    });
+</script>
+
+</body>
+</html>
