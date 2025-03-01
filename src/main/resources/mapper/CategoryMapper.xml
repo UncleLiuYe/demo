@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="site.liuye.demo.mapper.CategoryMapper">
-    <select id="findById" parameterType="long" resultType="site.liuye.demo.domain.Category">
+    <select id="findById" parameterType="long" resultType="site.liuye.demo.entity.Category">
         SELECT *
         FROM categories
         WHERE id = #{id}
     </select>
 
-    <select id="findAll" resultType="site.liuye.demo.domain.Category">
+    <select id="findAll" resultType="site.liuye.demo.entity.Category">
         SELECT *
         FROM categories
     </select>
 
-    <select id="findByName" parameterType="string" resultType="site.liuye.demo.domain.Category">
+    <select id="findByName" parameterType="string" resultType="site.liuye.demo.entity.Category">
         SELECT *
         FROM categories
         WHERE name = #{name}
     </select>
 
-    <insert id="insertCategory" parameterType="site.liuye.demo.domain.Category" useGeneratedKeys="true"
+    <insert id="insertCategory" parameterType="site.liuye.demo.entity.Category" useGeneratedKeys="true"
             keyProperty="id">
         INSERT INTO categories (name)
         VALUES (#{name})
     </insert>
 
-    <update id="updateCategory" parameterType="site.liuye.demo.domain.Category">
+    <update id="updateCategory" parameterType="site.liuye.demo.entity.Category">
         UPDATE categories
         SET name = #{name}
         WHERE id = #{id}
@@ -36,7 +36,7 @@
         WHERE id = #{id}
     </delete>
 
-    <select id="findAllCategories" resultType="site.liuye.demo.domain.Category">
+    <select id="findAllCategories" resultType="site.liuye.demo.entity.Category">
         SELECT *
         FROM categories
         LIMIT #{offset}, #{limit}

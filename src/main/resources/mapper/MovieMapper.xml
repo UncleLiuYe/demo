@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="site.liuye.demo.mapper.MovieMapper">
-    <select id="findById" parameterType="long" resultType="site.liuye.demo.domain.Movie">
+    <select id="findById" parameterType="long" resultType="site.liuye.demo.entity.Movie">
         SELECT *
         FROM movies
         WHERE id = #{id}
     </select>
 
-    <select id="findAll" resultType="site.liuye.demo.domain.Movie">
+    <select id="findAll" resultType="site.liuye.demo.entity.Movie">
         SELECT *
         FROM movies
     </select>
 
-    <select id="findMoviesByCondition" resultType="site.liuye.demo.domain.Movie">
+    <select id="findMoviesByCondition" resultType="site.liuye.demo.entity.Movie">
         SELECT * FROM movies
         <where>
             <if test="title != null and title != ''">
@@ -27,14 +27,14 @@
         </where>
     </select>
 
-    <insert id="insertMovie" parameterType="site.liuye.demo.domain.Movie" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertMovie" parameterType="site.liuye.demo.entity.Movie" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO movies (title, alias, director, actors, category_id, area, language, release_year, update_time,
                             description, cover_image, type)
         VALUES (#{title}, #{alias}, #{director}, #{actors}, #{categoryId}, #{area}, #{language}, #{releaseYear},
                 #{updateTime}, #{description}, #{coverImage}, #{type})
     </insert>
 
-    <update id="updateMovie" parameterType="site.liuye.demo.domain.Movie">
+    <update id="updateMovie" parameterType="site.liuye.demo.entity.Movie">
         UPDATE movies
         <set>
             <if test="title != null and title != ''">
@@ -83,7 +83,7 @@
         WHERE id = #{id}
     </delete>
 
-    <select id="findAllMovies" resultType="site.liuye.demo.domain.Movie">
+    <select id="findAllMovies" resultType="site.liuye.demo.entity.Movie">
         SELECT *
         FROM movies
         LIMIT #{offset}, #{limit}

@@ -1,25 +1,21 @@
 package site.liuye.demo.service;
 
-import org.apache.ibatis.annotations.Param;
-import site.liuye.demo.domain.Role;
-import site.liuye.demo.domain.User;
+import site.liuye.demo.entity.User;
 
 import java.util.List;
 
 public interface UserService {
-    boolean addUser(User user);
+    User getUserById(Long id);
 
-    boolean batchAddUsers(@Param("users") List<User> users);
-
-    boolean removeUser(Long id);
-
-    boolean updateUser(User user);
+    User getUserByUsername(String username);
 
     List<User> listUsers();
 
-    User findByUsername(String username);
+    int countUsers();
 
-    List<Role> findRolesByUserId(Long userId);
+    int saveUser(User user);
 
-    List<User> findUsersByCondition(@Param("username") String username, @Param("email") String email);
+    int updateUser(User user);
+
+    int removeUserById(Long id);
 }

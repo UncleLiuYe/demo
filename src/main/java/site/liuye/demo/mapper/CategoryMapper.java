@@ -2,7 +2,7 @@ package site.liuye.demo.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import site.liuye.demo.domain.Category;
+import site.liuye.demo.entity.Category;
 
 import java.util.List;
 

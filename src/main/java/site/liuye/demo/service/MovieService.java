@@ -1,6 +1,6 @@
 package site.liuye.demo.service;
 
-import site.liuye.demo.domain.Movie;
+import site.liuye.demo.entity.Movie;
 
 import java.util.List;
 

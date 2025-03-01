@@ -1,12 +1,25 @@
 package site.liuye.demo.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import site.liuye.demo.domain.UserRole;
+import org.apache.ibatis.annotations.Param;
+import site.liuye.demo.entity.UserRole;
+import site.liuye.demo.entity.UserRoleDTO;
+
+import java.util.List;
 
 @Mapper
 public interface UserRoleMapper {
-    void insertUserRole(UserRole userRole);
+    UserRole getUserRoleById(@Param("id") Long id);
 
-    void deleteUserRolesByUserId(Long userId);
+    List<UserRole> listUserRolesByUserId(@Param("userId") Long userId);
 
+    List<UserRole> listUserRolesByRoleId(@Param("roleId") Long roleId);
+
+    int countUserRoles();
+
+    int saveUserRole(UserRole userRole);
+
+    int removeUserRoleById(@Param("id") Long id);
+
+    List<UserRoleDTO> listUserRoleDTOsByUserId(@Param("userId") Long userId);
 }

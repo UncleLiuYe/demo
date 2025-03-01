@@ -1,9 +1,9 @@
-package site.liuye.demo.domain;
+package site.liuye.demo.entity;
 
 import lombok.Data;
 
 @Data
-public class Role {
+public class Category {
     private Long id;
     private String name;
 }

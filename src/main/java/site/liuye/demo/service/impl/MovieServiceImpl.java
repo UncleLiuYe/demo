@@ -2,7 +2,7 @@ package site.liuye.demo.service.impl;
 
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
-import site.liuye.demo.domain.Movie;
+import site.liuye.demo.entity.Movie;
 import site.liuye.demo.mapper.MovieMapper;
 import site.liuye.demo.service.MovieService;
 

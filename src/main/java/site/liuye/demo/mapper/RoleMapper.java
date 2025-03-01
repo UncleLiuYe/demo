@@ -1,17 +1,24 @@
 package site.liuye.demo.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
-import site.liuye.demo.domain.Role;
+import org.apache.ibatis.annotations.Param;
+import site.liuye.demo.entity.Role;
 
 import java.util.List;
 
 @Mapper
 public interface RoleMapper {
-    int insertRole(Role role);
+    Role getRoleById(@Param("id") Long id);
 
-    int deleteRole(Long id);
+    Role getRoleByName(@Param("name") String name);
+
+    List<Role> listRoles();
+
+    int countRoles();
+
+    int saveRole(Role role);
 
     int updateRole(Role role);
 
-    List<Role> findAll();
+    int removeRoleById(@Param("id") Long id);
 }

@@ -2,26 +2,23 @@ package site.liuye.demo.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import site.liuye.demo.domain.Role;
-import site.liuye.demo.domain.User;
+import site.liuye.demo.entity.User;
 
 import java.util.List;
 
 @Mapper
 public interface UserMapper {
-    int insertUser(User user);
+    User getUserById(@Param("id") Long id);
 
-    int batchInsertUsers(@Param("users") List<User> users);
-
-    int deleteUser(Long id);
-
-    int updateUser(User user);
+    User getUserByUsername(@Param("username") String username);
 
     List<User> listUsers();
 
-    User findByUsername(String username);
+    int countUsers();
 
-    List<Role> findRolesByUserId(Long userId);
+    int saveUser(User user);
 
-    List<User> findUsersByCondition(@Param("username") String username, @Param("email") String email);
+    int updateUser(User user);
+
+    int removeUserById(@Param("id") Long id);
 }

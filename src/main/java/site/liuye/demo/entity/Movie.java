@@ -1,4 +1,4 @@
-package site.liuye.demo.domain;
+package site.liuye.demo.entity;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;

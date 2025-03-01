@@ -2,7 +2,7 @@ package site.liuye.demo.mapper;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import site.liuye.demo.domain.Movie;
+import site.liuye.demo.entity.Movie;
 
 import java.util.List;
 

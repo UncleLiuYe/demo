@@ -1,60 +1,57 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="site.liuye.demo.mapper.UserMapper">
-    <update id="updateUser" parameterType="site.liuye.demo.domain.User">
-        UPDATE users
-        <set>
-            <if test="password != null and password != ''">
-                password = #{password},
-            </if>
-            <if test="email != null and email != ''">
-                email = #{email},
-            </if>
-            <if test="accountLocked != null">
-                account_locked = #{accountLocked},
-            </if>
-        </set>
-        WHERE id = #{id}
-    </update>
-    <delete id="deleteUser">
-        DELETE
-        FROM users
-        WHERE id = #{id}
-    </delete>
-    <select id="findByUsername" parameterType="string" resultType="site.liuye.demo.domain.User">
+    <resultMap id="userResultMap" type="site.liuye.demo.entity.User">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="password" column="password"/>
+        <result property="enabled" column="is_enabled"/>
+        <result property="locked" column="is_locked"/>
+        <result property="deleted" column="is_deleted"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="getUserById" parameterType="long" resultMap="userResultMap">
         SELECT *
-        FROM users
+        FROM `user`
+        WHERE id = #{id}
+    </select>
+
+    <select id="getUserByUsername" parameterType="string" resultMap="userResultMap">
+        SELECT *
+        FROM `user`
         WHERE username = #{username}
     </select>
-    <select id="findRolesByUserId" parameterType="long" resultType="site.liuye.demo.domain.Role">
-        SELECT r.*
-        FROM roles r
-                 JOIN users_roles ur ON r.id = ur.role_id
-        WHERE ur.user_id = #{userId}
+
+    <select id="listUsers" resultMap="userResultMap">
+        SELECT *
+        FROM `user`
     </select>
-    <select id="listUsers" resultType="site.liuye.demo.domain.User">
-        select *
-        from users
+
+    <select id="countUsers" resultType="int">
+        SELECT COUNT(*)
+        FROM `user`
     </select>
-    <select id="findUsersByCondition" resultType="site.liuye.demo.domain.User">
-        SELECT * FROM users
-        <where>
-            <if test="username != null and username != ''">
-                AND username LIKE CONCAT('%', #{username}, '%')
-            </if>
-            <if test="email != null and email != ''">
-                AND email LIKE CONCAT('%', #{email}, '%')
-            </if>
-        </where>
-    </select>
-    <insert id="insertUser" parameterType="site.liuye.demo.domain.User" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO users (username, password, email, account_locked, registration_time)
-        VALUES (#{username}, #{password}, #{email}, #{accountLocked}, #{registrationTime})
+
+    <insert id="saveUser" parameterType="site.liuye.demo.entity.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `user` (username, password, is_enabled, is_locked, is_deleted)
+        VALUES (#{username}, #{password}, #{enabled}, #{locked}, #{deleted})
     </insert>
-    <insert id="batchInsertUsers" parameterType="java.util.List">
-        INSERT INTO users (username, password, email, account_locked,registration_time) VALUES
-        <foreach collection="users" item="user" separator=",">
-            (#{user.username}, #{user.password}, #{user.email}, #{user.accountLocked},#{registrationTime})
-        </foreach>
-    </insert>
+
+    <update id="updateUser" parameterType="site.liuye.demo.entity.User">
+        UPDATE `user`
+        SET username   = #{username},
+            password   = #{password},
+            is_enabled = #{enabled},
+            is_locked  = #{locked},
+            is_deleted = #{deleted}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="removeUserById" parameterType="long">
+        DELETE
+        FROM `user`
+        WHERE id = #{id}
+    </delete>
 </mapper>

@@ -1,22 +1,49 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="site.liuye.demo.mapper.RoleMapper">
-    <insert id="insertRole" parameterType="site.liuye.demo.domain.Role" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO roles (name)
+    <resultMap id="roleResultMap" type="site.liuye.demo.entity.Role">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="getRoleById" parameterType="long" resultMap="roleResultMap">
+        SELECT *
+        FROM `role`
+        WHERE id = #{id}
+    </select>
+
+    <select id="getRoleByName" parameterType="string" resultMap="roleResultMap">
+        SELECT *
+        FROM `role`
+        WHERE name = #{name}
+    </select>
+
+    <select id="listRoles" resultMap="roleResultMap">
+        SELECT *
+        FROM `role`
+    </select>
+
+    <select id="countRoles" resultType="int">
+        SELECT COUNT(*)
+        FROM `role`
+    </select>
+
+    <insert id="saveRole" parameterType="site.liuye.demo.entity.Role" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO `role` (name)
         VALUES (#{name})
     </insert>
-    <update id="updateRole">
-        UPDATE roles
+
+    <update id="updateRole" parameterType="site.liuye.demo.entity.Role">
+        UPDATE `role`
         SET name = #{name}
         WHERE id = #{id}
     </update>
-    <delete id="deleteRole">
+
+    <delete id="removeRoleById" parameterType="long">
         DELETE
-        FROM roles
+        FROM `role`
         WHERE id = #{id}
     </delete>
-    <select id="findAll" resultType="site.liuye.demo.domain.Role">
-        SELECT *
-        FROM roles
-    </select>
 </mapper>
