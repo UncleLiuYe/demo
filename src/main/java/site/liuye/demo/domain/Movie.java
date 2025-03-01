@@ -1,5 +1,6 @@
 package site.liuye.demo.domain;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -15,6 +16,7 @@ public class Movie {
     private String area;
     private String language;
     private Integer releaseYear;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime updateTime;
     private String description;
     private String coverImage;
