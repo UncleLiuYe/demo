@@ -1,5 +1,6 @@
 package site.liuye.demo.service;
 
+import site.liuye.demo.entity.LoginResponse;
 import site.liuye.demo.entity.User;
 
 import java.util.List;
@@ -18,4 +19,6 @@ public interface UserService {
     int updateUser(User user);
 
     int removeUserById(Long id);
+
+    LoginResponse login(String username, String password);
 }

@@ -1,7 +1,6 @@
 package site.liuye.demo.service;
 
 import site.liuye.demo.entity.UserRole;
-import site.liuye.demo.entity.UserRoleDTO;
 
 import java.util.List;
 
@@ -18,6 +17,6 @@ public interface UserRoleService {
 
     int removeUserRoleById(Long id);
 
-    List<UserRoleDTO> listUserRoleDTOsByUserId(Long userId);
+    List<String> listUserRoleDTOsByUserId(Long userId);
 
 }

@@ -9,14 +9,6 @@
         <result property="updateTime" column="update_time"/>
     </resultMap>
 
-    <resultMap id="userRoleDTOResultMap" type="site.liuye.demo.entity.UserRoleDTO">
-        <id property="id" column="id"/>
-        <result property="userId" column="user_id"/>
-        <result property="username" column="username"/>
-        <result property="roleId" column="role_id"/>
-        <result property="roleName" column="role_name"/>
-    </resultMap>
-
     <select id="getUserRoleById" parameterType="long" resultMap="userRoleResultMap">
         SELECT *
         FROM `user_role`
@@ -52,12 +44,8 @@
         WHERE id = #{id}
     </delete>
 
-    <select id="listUserRoleDTOsByUserId" parameterType="long" resultMap="userRoleDTOResultMap">
-        SELECT ur.id,
-               ur.user_id,
-               u.username,
-               ur.role_id,
-               r.name AS role_name
+    <select id="listUserRoleDTOsByUserId" parameterType="long" resultType="java.lang.String">
+        SELECT r.name AS role_name
         FROM user_role ur
                  LEFT JOIN user u ON ur.user_id = u.id
                  LEFT JOIN role r ON ur.role_id = r.id

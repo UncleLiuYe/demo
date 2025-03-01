@@ -3,7 +3,6 @@ package site.liuye.demo.service.impl;
 import jakarta.annotation.Resource;
 import org.springframework.stereotype.Service;
 import site.liuye.demo.entity.UserRole;
-import site.liuye.demo.entity.UserRoleDTO;
 import site.liuye.demo.mapper.UserRoleMapper;
 import site.liuye.demo.service.UserRoleService;
 
@@ -45,7 +44,7 @@ public class UserRoleServiceImpl implements UserRoleService {
     }
 
     @Override
-    public List<UserRoleDTO> listUserRoleDTOsByUserId(Long userId) {
+    public List<String> listUserRoleDTOsByUserId(Long userId) {
         return userRoleMapper.listUserRoleDTOsByUserId(userId);
     }
 }

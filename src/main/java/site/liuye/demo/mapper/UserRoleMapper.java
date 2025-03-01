@@ -3,7 +3,6 @@ package site.liuye.demo.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import site.liuye.demo.entity.UserRole;
-import site.liuye.demo.entity.UserRoleDTO;
 
 import java.util.List;
 
@@ -21,5 +20,5 @@ public interface UserRoleMapper {
 
     int removeUserRoleById(@Param("id") Long id);
 
-    List<UserRoleDTO> listUserRoleDTOsByUserId(@Param("userId") Long userId);
+    List<String> listUserRoleDTOsByUserId(@Param("userId") Long userId);
 }
