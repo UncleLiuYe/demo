@@ -23,7 +23,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.authorizeHttpRequests((authorize) -> authorize.requestMatchers("/login").permitAll()
-                        .requestMatchers("/register").permitAll().anyRequest().authenticated())
+                        .requestMatchers("/register").permitAll().requestMatchers("/test").permitAll().anyRequest().authenticated())
                 .formLogin(FormLoginConfigurer::disable)
                 .csrf(CsrfConfigurer::disable);
         return http.build();
